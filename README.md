@@ -1,53 +1,39 @@
+# CDOM/CM Prediction using Machine Learning
+
 This repository contains three experimental pipelines for comparing machine learning models in predicting water quality indicators such as CDOM and CM using hyperspectral or satellite-derived features.
 
-📁 Repository Structure
+## 📁 Repository Structure
 
-Folder
-
-Purpose
-
-Notes
-
-01_compareML
-
-Base model comparison for CDOM
-
-Default version for evaluating SVR, RFR, XGB, ANN on CDOM prediction
-
-02_compareML_fix_CM
-
-Model comparison for CM
-
-Target variable changed to CM (e.g., Chlorophyll-a or a similar indicator), features are the same
-
-03_compareML_fix_RM
-
-RMSE-sorted visualization & evaluation
-
-Maintains CM as target, focuses on RMSE-aligned result presentation
+| Folder                | Purpose                                | Notes                                                                                             |
+| --------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `01_compareML`        | Base model comparison for CDOM         | Default version for evaluating SVR, RFR, XGB, ANN on CDOM prediction                              |
+| `02_compareML_fix_CM` | Model comparison for CM                | Target variable changed to CM (e.g., Chlorophyll-a or a similar indicator), features are the same |
+| `03_compareML_fix_RM` | RMSE-sorted visualization & evaluation | Maintains CM as target, focuses on RMSE-aligned result presentation                               |
 
 Each folder contains independent pipelines for training, optimizing, evaluating, and visualizing multiple regression models.
 
-🚀 Getting Started
+---
 
-1. Requirements
+## 🚀 Getting Started
+
+### 1. Requirements
 
 Install dependencies using the following command:
 
+```bash
 pip install -r requirements.txt
+```
 
-2. Input Format
+### 2. Input Format
 
-Excel file: new_dataset.xlsx
+* Excel file: `new_dataset.xlsx`
+* Sheet: `r2`
+* Target: `a355` (CDOM) or `CM` (based on folder)
+* Must include `Level` column for stratified sampling
 
-Sheet: r2
+### 3. Folder Contents
 
-Target: a355 (CDOM) or CM (based on folder)
-
-Must include Level column for stratified sampling
-
-3. Folder Contents
-
+```bash
 ├── cdom_model.py            # Main script
 ├── new_dataset.xlsx         # Input data
 ├── M01_SVR_model.csv        # SVR results
@@ -57,49 +43,53 @@ Must include Level column for stratified sampling
 ├── result/                  # CSV prediction outputs
 ├── graph/                   # Scatter plots
 └── temp/                    # Saved models (.pkl / .pth)
+```
 
-🧠 Model Pipeline Overview
+---
+
+## 🧠 Model Pipeline Overview
 
 Each folder performs the following steps:
 
-Load and preprocess dataset (MinMax normalization)
+1. Load and preprocess dataset (MinMax normalization)
+2. Level-aware train/test splitting
+3. Model training with Optuna-based hyperparameter tuning
+4. Evaluation: R², MAE, RMSE
+5. Save predictions, plots, and trained models
 
-Level-aware train/test splitting
+### Supported Models:
 
-Model training with Optuna-based hyperparameter tuning
+* **SVR**: Support Vector Regression (scikit-learn)
+* **RFR**: Random Forest Regression
+* **XGB**: XGBoost Regression
+* **ANN**: Artificial Neural Network (PyTorch)
 
-Evaluation: R², MAE, RMSE
+---
 
-Save predictions, plots, and trained models
+## 📊 Result Interpretation
 
-Supported Models:
+* Each CSV file (`M0X_*.csv`) contains train/test performance per iteration (R², MAE, RMSE) along with best hyperparameters
+* Scatter plots (`graph/*.png`) visualize predicted vs. observed values
+* Results can be compared across folders to observe:
 
-SVR: Support Vector Regression (scikit-learn)
+  * Model stability over iterations
+  * Effect of target variable change (CDOM vs. CM)
+  * Alignment impact (RMSE sorting)
 
-RFR: Random Forest Regression
+---
 
-XGB: XGBoost Regression
+## 🔍 Example Use Cases
 
-ANN: Artificial Neural Network (PyTorch)
+* Evaluate suitability of ML algorithms for aquatic carbon proxy estimation
+* Benchmark predictive stability using fixed-level splits
+* Analyze preprocessing or visualization improvements by comparing across folders
 
-📊 Result Interpretation
+---
 
-Each CSV file (M0X_*.csv) contains train/test performance per iteration (R², MAE, RMSE) along with best hyperparameters
+## ✍️ Author
 
-Scatter plots (graph/*.png) visualize predicted vs. observed values
+Kim, Jinuk
+Feel free to open issues or contribute improvements.
 
-Results can be compared across folders to observe:
+---
 
-Model stability over iterations
-
-Effect of target variable change (CDOM vs. CM)
-
-Alignment impact (RMSE sorting)
-
-🔍 Example Use Cases
-
-Evaluate suitability of ML algorithms for aquatic carbon proxy estimation
-
-Benchmark predictive stability using fixed-level splits
-
-Analyze preprocessing or visualization improvements by comparing across folders
