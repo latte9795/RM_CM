@@ -8,7 +8,7 @@ This script trains multiple machine learning models to estimate CDOM (Colored Di
 concentrations using spectral band ratios. It performs level-aware train/val/test splitting,
 normalization, model training, hyperparameter tuning, prediction, evaluation, and result export.
 
-Author: latte9795/RM_CM
+Author: latte9795/RM_CM/01_compareML
 Created: 2025-06-23
 """
 
