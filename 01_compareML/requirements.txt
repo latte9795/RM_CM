@@ -1,0 +1,13 @@
+```txt
+pandas
+numpy
+matplotlib
+scikit-learn
+xgboost
+lightgbm
+imblearn
+optuna
+openpyxl
+tensorflow
+torch
+seaborn
