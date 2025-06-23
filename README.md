@@ -1,4 +1,4 @@
-# CDOM/CM Prediction using Machine Learning
+# RM/CM Prediction using Machine Learning
 
 This repository contains three experimental pipelines for comparing machine learning models in predicting water quality indicators such as CDOM and CM using hyperspectral or satellite-derived features.
 
